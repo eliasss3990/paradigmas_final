@@ -39,10 +39,6 @@ def _leer_opcion_categoria(prompt):
         print("Categoría inválida.")
 
 
-def _leer_si_no(prompt):
-    return input(prompt).strip().lower() in ("s", "si", "sí", "y")
-
-
 # ---------- acciones del menú ----------
 
 def _accion_agregar(agenda):
@@ -96,6 +92,24 @@ def _accion_marcar(agenda):
         print("Número fuera de rango.")
 
 
+def _accion_vender(agenda):
+    print("\n--- VENDER ENTRADAS ---")
+    if not agenda.items:
+        print("(no hay eventos cargados)")
+        return
+    _mostrar_lista(agenda.items)
+    idx = _leer_entero("Número de evento: ", minimo=1)
+    if not 1 <= idx <= len(agenda.items):
+        print("Número fuera de rango.")
+        return
+    evento = agenda.items[idx - 1]
+    cantidad = _leer_entero("Cantidad a vender: ", minimo=1)
+    if evento.vender_entrada(cantidad):
+        print(f"Vendidas {cantidad}. Disponibles: {evento.lugares_disponibles}")
+    else:
+        print(f"No hay cupo suficiente. Disponibles: {evento.lugares_disponibles}")
+
+
 def _accion_estadisticas(agenda):
     print("\n--- ESTADÍSTICAS ---")
     d = agenda.estadisticas()
@@ -105,7 +119,7 @@ def _accion_estadisticas(agenda):
     print(f"Confirmados: {d['confirmados']} | Pendientes: {d['pendientes']}")
     print(f"Entradas vendidas: {d['entradas_vendidas']} / {d['cupo_total']} "
           f"({d['ocupacion']:.0%} de ocupación)")
-    print(f"Categorías presentes: {d['categorias'] or '—'}")
+    print(f"Categorías presentes: {', '.join(sorted(d['categorias'])) or '—'}")
     print(f"Eventos de categoría deportivo: {d['eventos_del_deporte']}")
     print(f"Reglamento {d['deporte']}: {d['reglamento']}")
 
@@ -139,16 +153,19 @@ OPCIONES = {
     "3": ("Buscar por nombre", _accion_buscar),
     "4": ("Filtrar por categoría", _accion_filtrar),
     "5": ("Marcar evento como confirmado", _accion_marcar),
-    "6": ("Ver estadísticas", _accion_estadisticas),
-    "7": ("Módulo funcional", _accion_funcional),
+    "6": ("Vender entradas", _accion_vender),
+    "7": ("Ver estadísticas", _accion_estadisticas),
+    "8": ("Módulo funcional", _accion_funcional),
 }
+
+SALIR = "9"
 
 
 def _imprimir_menu():
     print("\n--- MENÚ PRINCIPAL ---")
     for clave, (etiqueta, _) in OPCIONES.items():
         print(f"{clave}. {etiqueta}")
-    print("8. Salir")
+    print(f"{SALIR}. Salir")
 
 
 def iniciar():
@@ -164,7 +181,7 @@ def iniciar():
     while True:
         _imprimir_menu()
         opcion = input("Seleccione una opción: ").strip()
-        if opcion == "8":
+        if opcion == SALIR:
             print("¡Hasta luego!")
             break
         accion = OPCIONES.get(opcion)
