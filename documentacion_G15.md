@@ -78,7 +78,8 @@ propio de una versión especializada. Con herencia, la base permanece genérica.
 Ver `diagrama_G15.png` (generado desde `diagrama_G15.puml`).
 
 - `EventoDeportivo ▷── AgendaEventos`: herencia (triángulo hueco hacia el padre).
-- `AgendaEventos ◇──1..0..* Evento`: composición; la agenda contiene 0..* eventos.
+- `AgendaEventos 1 ◆── 0..* Evento`: composición; la agenda contiene 0..* eventos.
+  Cada `Evento` pertenece a una sola agenda y vive dentro de su colección.
 
 ---
 

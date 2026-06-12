@@ -41,6 +41,6 @@ class EventoDeportivo {
 }
 
 EventoDeportivo --|> AgendaEventos : herencia
-AgendaEventos "1" o-- "0..*" Evento : composicion (items)
+AgendaEventos "1" *-- "0..*" Evento : composicion (items)
 
 @enduml
