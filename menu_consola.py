@@ -120,7 +120,7 @@ def _accion_estadisticas(agenda):
     print(f"Entradas vendidas: {d['entradas_vendidas']} / {d['cupo_total']} "
           f"({d['ocupacion']:.0%} de ocupación)")
     print(f"Categorías presentes: {', '.join(sorted(d['categorias'])) or '—'}")
-    print(f"Eventos de categoría deportivo: {d['eventos_del_deporte']}")
+    print(f"Eventos de categoría deportivo: {d['eventos_categoria_deportivo']}")
     print(f"Reglamento {d['deporte']}: {d['reglamento']}")
 
 

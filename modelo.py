@@ -144,5 +144,6 @@ class EventoDeportivo(AgendaEventos):
         datos = super().estadisticas() # reutiliza el cálculo base
         datos["deporte"] = self.deporte
         datos["reglamento"] = self.reglamento()
-        datos["eventos_del_deporte"] = len(self.filtrar_por_categoria("deportivo"))
+        # 'deporte' determina el reglamento; este conteo es independiente, por categoría.
+        datos["eventos_categoria_deportivo"] = len(self.filtrar_por_categoria("deportivo"))
         return datos
