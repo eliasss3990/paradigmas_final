@@ -2,6 +2,7 @@
 title Proyecto Final - Gestion de Eventos - Grupo 15
 
 class Evento {
+  + {static} CATEGORIAS_VALIDAS : tuple
   + nombre : str
   + fecha : str
   + lugar : str

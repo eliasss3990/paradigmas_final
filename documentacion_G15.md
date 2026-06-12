@@ -28,6 +28,7 @@ El sistema permite administrar una colección de eventos desde la consola. El us
 - Buscar eventos por nombre (búsqueda parcial).
 - Filtrar eventos por categoría.
 - Confirmar eventos.
+- Vender entradas validando que no se supere el cupo.
 - Ver estadísticas de la colección, adaptadas al deporte de especialización.
 - Ejecutar el módulo funcional (eventos confirmados, resumen y ordenamiento).
 
