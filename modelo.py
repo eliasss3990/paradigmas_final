@@ -66,3 +66,48 @@ class Evento:
     def __repr__(self):
         return (f"Evento(nombre={self.nombre!r}, fecha={self.fecha!r}, "
                 f"categoria={self.categoria!r}, cupo_maximo={self._cupo_maximo})")
+
+
+class AgendaEventos:
+    """Colección de eventos. Centraliza alta, búsqueda, filtrado y estadísticas."""
+
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.items = [] # list[Evento]
+
+    def agregar(self, evento):
+        """Agrega un Evento validando el tipo para no contaminar la colección."""
+        if not isinstance(evento, Evento):
+            raise TypeError("Solo se pueden agregar instancias de Evento.")
+        self.items.append(evento)
+
+    def buscar_por_nombre(self, texto):
+        """Búsqueda parcial, case-insensitive, por nombre del evento."""
+        t = texto.lower()
+        return [e for e in self.items if t in e.nombre.lower()]
+
+    def filtrar_por_categoria(self, categoria):
+        """Filtra por categoría exacta (case-insensitive)."""
+        c = categoria.lower()
+        return [e for e in self.items if e.categoria.lower() == c]
+
+    def estadisticas(self):
+        """Devuelve un dict con métricas. No imprime: la presentación es del menú."""
+        total = len(self.items)
+        confirmados = sum(1 for e in self.items if e.confirmado)
+        entradas_vendidas = sum(e.entradas_vendidas for e in self.items)
+        cupo_total = sum(e.cupo_maximo for e in self.items)
+        categorias = {e.categoria for e in self.items}
+        return {
+            "nombre": self.nombre,
+            "total": total,
+            "confirmados": confirmados,
+            "pendientes": total - confirmados,
+            "entradas_vendidas": entradas_vendidas,
+            "cupo_total": cupo_total,
+            "ocupacion": (entradas_vendidas / cupo_total) if cupo_total else 0.0,
+            "categorias": categorias,
+        }
+
+    def __len__(self):
+        return len(self.items)
