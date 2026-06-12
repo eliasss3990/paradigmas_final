@@ -17,6 +17,8 @@ class Evento:
         self.lugar = lugar
         self.categoria = categoria
         self.cupo_maximo = cupo_maximo # vía setter: valida desde la construcción
+        if not 0 <= entradas_vendidas <= self.cupo_maximo:
+            raise ValueError("Las entradas vendidas deben estar entre 0 y el cupo máximo.")
         self._entradas_vendidas = entradas_vendidas
         self.confirmado = confirmado
 
