@@ -111,3 +111,36 @@ class AgendaEventos:
 
     def __len__(self):
         return len(self.items)
+
+
+class EventoDeportivo(AgendaEventos):
+    """Agenda especializada en un deporte. Hereda toda la gestión de AgendaEventos
+    y añade el reglamento del deporte y estadísticas propias."""
+
+    # Reglamentos mínimos por deporte (constante de clase, extensible sin tocar la lógica).
+    REGLAMENTOS = {
+        "futbol": "11 jugadores por equipo, dos tiempos de 45 minutos.",
+        "futsal": "5 jugadores por equipo, dos tiempos de 20 minutos a reloj parado.",
+        "basquet": "5 jugadores por equipo, cuatro cuartos de 10 minutos.",
+        "voley": "6 jugadores por equipo, sets a 25 puntos con diferencia de 2.",
+        "tenis": "1 vs 1, sets a 6 games con diferencia de 2.",
+    }
+
+    def __init__(self, nombre, deporte):
+        super().__init__(nombre) # inicializa nombre e items en el padre
+        self.deporte = deporte
+
+    def reglamento(self):
+        """Devuelve el reglamento del deporte de la agenda (método propio del dominio)."""
+        return self.REGLAMENTOS.get(
+            self.deporte.lower(),
+            f"No hay reglamento cargado para '{self.deporte}'."
+        )
+
+    def estadisticas(self):
+        """Override: extiende las estadísticas del padre con datos del deporte."""
+        datos = super().estadisticas() # reutiliza el cálculo base
+        datos["deporte"] = self.deporte
+        datos["reglamento"] = self.reglamento()
+        datos["eventos_del_deporte"] = len(self.filtrar_por_categoria("deportivo"))
+        return datos
