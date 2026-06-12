@@ -76,7 +76,7 @@ propio de una versión especializada. Con herencia, la base permanece genérica.
 
 ## 3. Diagrama UML de clases
 
-Ver `diagrama_G15.png` (generado desde `diagrama_G15.puml`).
+Ver `../diagramas/diagrama_G15.png` (generado desde `../diagramas/diagrama_G15.puml`).
 
 - `EventoDeportivo ▷── AgendaEventos`: herencia (triángulo hueco hacia el padre).
 - `AgendaEventos 1 ◆── 0..* Evento`: composición; la agenda contiene 0..* eventos.
