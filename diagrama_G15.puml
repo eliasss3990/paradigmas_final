@@ -1,0 +1,46 @@
+@startuml diagrama_G15
+title Proyecto Final - Gestion de Eventos - Grupo 15
+
+class Evento {
+  + nombre : str
+  + fecha : str
+  + lugar : str
+  + categoria : str
+  - _cupo_maximo : int
+  - _entradas_vendidas : int
+  + confirmado : bool
+  --
+  + cupo_maximo : int {property}
+  + entradas_vendidas : int {property, read-only}
+  + lugares_disponibles : int {property, calc}
+  + esta_agotado : bool {property, calc}
+  + vender_entrada(cantidad=1) : bool
+  + confirmar() : None
+  + cancelar() : None
+  + __str__() : str
+  + __repr__() : str
+}
+
+class AgendaEventos {
+  + nombre : str
+  + items : list<Evento>
+  --
+  + agregar(evento) : None
+  + buscar_por_nombre(texto) : list<Evento>
+  + filtrar_por_categoria(categoria) : list<Evento>
+  + estadisticas() : dict
+  + __len__() : int
+}
+
+class EventoDeportivo {
+  + deporte : str
+  + {static} REGLAMENTOS : dict
+  --
+  + reglamento() : str
+  + estadisticas() : dict {override}
+}
+
+EventoDeportivo --|> AgendaEventos : herencia
+AgendaEventos "1" o-- "0..*" Evento : composicion (items)
+
+@enduml
