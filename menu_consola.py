@@ -139,6 +139,15 @@ def _accion_estadisticas(agenda: EventoDeportivo) -> None:
     print(f"Reglamento {d['deporte']}: {d['reglamento']}")
 
 
+# Etiquetas amigables -> atributo real de Evento (para el ordenamiento del menú).
+CRITERIOS_ORDEN = {
+    "1": ("Nombre", "nombre"),
+    "2": ("Fecha", "fecha"),
+    "3": ("Categoría", "categoria"),
+    "4": ("Cupo", "cupo_maximo"),
+}
+
+
 def _accion_funcional(agenda: EventoDeportivo) -> None:
     print("\n--- MÓDULO FUNCIONAL ---")
     print("a. Nombres de eventos confirmados (filter + map)")
@@ -148,14 +157,20 @@ def _accion_funcional(agenda: EventoDeportivo) -> None:
     if opcion == "a":
         print("Confirmados:", items_activos(agenda) or "(ninguno)")
     elif opcion == "b":
-        for linea in resumen_coleccion(agenda):
+        resumen = resumen_coleccion(agenda)
+        if not resumen:
+            print("(sin resultados)")
+        for linea in resumen:
             print("->", linea)
     elif opcion == "c":
-        criterio = input("Criterio (nombre/fecha/categoria/cupo_maximo): ").strip()
-        try:
-            _mostrar_lista(items_ordenados(agenda, criterio))
-        except AttributeError:
-            print("Criterio inexistente.")
+        for clave, (etiqueta, _) in CRITERIOS_ORDEN.items():
+            print(f"  {clave}. {etiqueta}")
+        sel = input("Ordenar por: ").strip()
+        if sel not in CRITERIOS_ORDEN:
+            print("Criterio inválido.")
+            return
+        atributo = CRITERIOS_ORDEN[sel][1]
+        _mostrar_lista(items_ordenados(agenda, atributo))
     else:
         print("Opción inválida.")
 
