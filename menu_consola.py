@@ -7,7 +7,7 @@ lógica en el modelo y el módulo funcional.
 from datetime import date
 from typing import Callable
 
-from modelo import Evento, EventoDeportivo
+from modelo import Evento, EventoDeportivo, PATRON_FECHA
 from modulo_funcional import items_activos, resumen_coleccion, items_ordenados
 
 
@@ -46,6 +46,8 @@ def _leer_fecha(prompt: str) -> str:
     while True:
         valor = input(prompt).strip()
         try:
+            if not PATRON_FECHA.fullmatch(valor):
+                raise ValueError
             date.fromisoformat(valor)
             return valor
         except ValueError:

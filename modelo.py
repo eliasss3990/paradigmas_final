@@ -4,8 +4,12 @@ No depende de la interfaz (sin print/input), para poder reutilizarla desde
 consola, Tkinter o web.
 """
 
+import re
 from datetime import date
 from typing import Any
+
+# Formato AAAA-MM-DD exacto. Compartido con la capa de consola (única fuente del patrón).
+PATRON_FECHA = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 
 class Evento:
@@ -32,10 +36,13 @@ class Evento:
 
     @fecha.setter
     def fecha(self, valor: str) -> None:
-        # date.fromisoformat valida que el string sea una fecha AAAA-MM-DD real.
+        # El regex exige el formato AAAA-MM-DD exacto; fromisoformat valida que sea
+        # una fecha real (descarta mes 13, día 40, etc.).
         try:
+            if not (isinstance(valor, str) and PATRON_FECHA.fullmatch(valor)):
+                raise ValueError
             date.fromisoformat(valor)
-        except (ValueError, TypeError):
+        except ValueError:
             raise ValueError("La fecha debe tener el formato AAAA-MM-DD (ej: 2026-08-15).")
         self._fecha = valor
 
