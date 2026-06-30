@@ -38,11 +38,13 @@ class Evento:
     def fecha(self, valor: str) -> None:
         # El regex exige el formato AAAA-MM-DD exacto; fromisoformat valida que sea
         # una fecha real (descarta mes 13, día 40, etc.).
+        # fullmatch lanza TypeError si 'valor' no es str (p. ej. None); lo capturamos
+        # junto con el ValueError para devolver siempre un mensaje claro.
         try:
-            if not (isinstance(valor, str) and PATRON_FECHA.fullmatch(valor)):
+            if not PATRON_FECHA.fullmatch(valor):
                 raise ValueError
             date.fromisoformat(valor)
-        except ValueError:
+        except (ValueError, TypeError):
             raise ValueError("La fecha debe tener el formato AAAA-MM-DD (ej: 2026-08-15).")
         self._fecha = valor
 
