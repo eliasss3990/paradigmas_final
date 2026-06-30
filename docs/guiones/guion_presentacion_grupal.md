@@ -1,133 +1,79 @@
 # Guion de presentación grupal — Grupo 15
 
-Flujo de la exposición oral. El foco es **mostrar la app funcionando** y explicar
-**qué hace y por qué**, no recorrer el código línea por línea. Después vienen las
-preguntas individuales (ver los otros guiones).
+Libreto que acompaña a la presentación (`presentacion_G15.pptx`). El enfoque es una
+**demo de producto (estilo UAT)**: explicamos *qué hace el sistema y qué valor da* a
+alguien no técnico, **sin mostrar código**. El detalle slide por slide está en
+`contenido_ppt.md`.
 
-**Duración estimada:** 8–10 min de presentación + preguntas.
-**Reparto sugerido** (ajustable): Elias abre y hace la demo · Enzo explica modelado
-y UML · Nicolas cierra con documentación técnica. Igual cada uno debe poder
-responder preguntas de TODA la app.
+**Duración:** ~10 min de presentación + preguntas.
+**Reparto sugerido** (ajustable): Elias (slides 1-4) · Enzo (5-8) · Nicolas (9-12).
+Cada uno debe poder responder preguntas de TODA la app.
 
----
-
-## Bloque 1 — Apertura y contexto [~1 min] · (Elias)
-
-"Buenas. Somos el Grupo 15. Nuestro dominio asignado es **gestión de eventos**.
-El sistema permite administrar una agenda de eventos —por ejemplo una liga
-deportiva— desde una aplicación de consola: cargar eventos, vender entradas
-controlando el cupo, confirmarlos, filtrarlos y sacar estadísticas.
-
-El problema que resuelve: organizar eventos sin herramientas suele llevar a
-sobrevender entradas o perder el control de qué está confirmado. Nuestro sistema
-centraliza eso y valida las reglas automáticamente."
+**Antes de empezar:** abrir el PPT en pantalla completa y tener la consola lista en
+otra ventana (`python3 proyecto_G15.py`) para la demo en vivo.
 
 ---
 
-## Bloque 2 — Demo en vivo [~3 min] · (Elias)
+## Parte 1 — Apertura y problema · Elias [slides 1-3, ~2 min]
 
-> Ejecutar `python3 proyecto_G15.py` y mostrar, explicando el "por qué" de cada paso.
+- **Slide 1 (portada):** "Buenas, somos el Grupo 15. Les presentamos nuestro sistema
+  de gestión de eventos."
+- **Slide 2 (agenda):** "Vamos a ver el problema, la solución, una demo en vivo, y
+  cómo lo construimos."
+- **Slide 3 (el problema):** "Organizar eventos sin una herramienta lleva al caos:
+  sobreventa de entradas, no saber qué está confirmado, no tener una visión global."
+
+## Parte 2 — La solución y funcionalidades · Elias→Enzo [slides 4-5, ~1.5 min]
+
+- **Slide 4 (la solución):** "Nuestra app centraliza todo. Lo importante: aplica las
+  reglas sola (no te deja sobrevender) y siempre tenés la foto del estado."
+- **Slide 5 (funcionalidades):** "Estas son las ocho capacidades. Las mostramos
+  funcionando."
+
+## Parte 3 — DEMO EN VIVO · Enzo [slides 6-8 como apoyo, ~3-4 min]
+
+> Cambiar a la consola. El PPT (slides 6, 7, 8) queda de apoyo visual; el foco es la app.
 
 **Guion de la demo (qué hacer y qué decir):**
 
-1. **Inicio:** "Al arrancar pide el nombre de la colección y el deporte de
-   especialización. Pongo 'Liga Verano' y 'Futsal'." → escribir.
-
-2. **Agregar evento (opción 1):** "Cargo la final del torneo." → nombre, fecha,
+1. **Crear la agenda:** "Pongo nombre 'Liga Verano' y deporte 'Futsal'." → escribir.
+2. **Agregar la final** (opción 1): nombre 'Final del Torneo', fecha 2026-07-20,
    lugar, categoría 'deportivo', cupo 200.
-   *Por qué:* "Fíjense que si pongo una fecha mal escrita, el sistema la rechaza y
-   me la vuelve a pedir —validamos el formato—." (mostrarlo a propósito).
+   - **Mostrar validación:** "Si escribo una fecha mal, miren —la rechaza y me la
+     vuelve a pedir." → escribir una fecha inválida a propósito, luego la correcta.
+3. **Agregar un segundo evento** (una charla o taller) para tener variedad.
+4. **Listar** (opción 2) y **buscar** 'final' (opción 3); **filtrar** por 'deportivo'
+   (opción 4).
+5. **Vender entradas** (opción 6): vender 150 de la final. Luego **intentar vender
+   100 más** → "No me deja, no hay cupo. Esta es la regla central del sistema."
+6. **Confirmar** la final (opción 5).
+7. **Estadísticas** (opción 7): "Acá está la foto completa —total, confirmados, la
+   ocupación de la colección, las categorías y el reglamento del deporte." (señalar
+   el porcentaje que aparezca; NO decir un número de memoria).
+8. **Módulo funcional** (opción 8): mostrar las tres (confirmados, resumen, ordenar
+   por fecha). "Esta es la parte de análisis."
+9. Salir (opción 9). Volver al PPT.
 
-3. **Agregar otro** (una charla o taller) para tener variedad de categorías.
+## Parte 4 — Cómo está construido · Nicolas [slides 9-12, ~2.5 min]
 
-4. **Vender entradas (opción 6):** vender 150 de la final.
-   *Por qué:* "Acá está la regla central: si intento vender más que el cupo, no me
-   deja." → intentar vender 100 más y mostrar que lo rechaza.
-
-5. **Confirmar (opción 5):** confirmar la final.
-
-6. **Estadísticas (opción 7):** "Muestra total, confirmados, la ocupación de la
-   colección (entradas vendidas sobre el cupo total de todos los eventos),
-   categorías y el reglamento del deporte." → señalar el porcentaje que aparezca en
-   pantalla y el reglamento. (No memorizar un número: la ocupación es global, depende
-   de cuántos eventos haya cargados y sus cupos.)
-
-7. **Módulo funcional (opción 8):** mostrar las tres: confirmados, resumen y
-   ordenar por fecha. *Por qué:* "Esto es la parte funcional, con filter, map y
-   sorted."
-
-8. Salir (opción 9).
-
----
-
-## Bloque 3 — Cómo lo modelamos [~2 min] · (Enzo)
-
-"Brevemente cómo está diseñado. Usamos **tres clases** con dos niveles de
-abstracción:
-
-- **`Evento`**: la entidad individual. Encapsula sus datos y sus reglas (el cupo,
-  las entradas vendidas).
-- **`AgendaEventos`**: la colección. Centraliza agregar, buscar, filtrar y las
-  estadísticas.
-- **`EventoDeportivo`**: hereda de `AgendaEventos`, es una agenda especializada en
-  un deporte; agrega el reglamento y amplía las estadísticas.
-
-Una decisión clave: **separamos la lógica de la interfaz**. El modelo no usa
-`print` ni `input`; la consola es la única capa que interactúa con el usuario. Eso
-nos permitiría cambiar a una interfaz gráfica reutilizando el mismo modelo.
-
-Y aparte está el **módulo funcional**: tres funciones con filter, map y sorted que
-operan sobre los objetos."
+- **Slide 9 (cómo está construido):** "Sin entrar en código: tres piezas —el evento
+  individual, la agenda que los agrupa, y la agenda deportiva especializada. Y algo
+  clave: separamos la lógica de la pantalla."
+- **Slide 10 (UML):** "Este es el modelo. La agenda deportiva hereda de la agenda
+  general; la agenda contiene los eventos; cada dato sensible está validado."
+- **Slide 11 (pensado para crecer):** "Como la lógica está separada de la interfaz,
+  mañana podríamos ponerle una interfaz gráfica reutilizando el mismo motor. Y sumar
+  un deporte nuevo es trivial."
+- **Slide 12 (cierre):** "En resumen: centraliza, valida y analiza. Gracias, quedamos
+  atentos a las preguntas."
 
 ---
 
-## Bloque 4 — Diagrama UML [~1.5 min] · (Enzo)
+## Recordatorios
 
-> Mostrar `diagramas/diagrama_G15.png` en pantalla.
-
-"Este es el diagrama de clases. Se ven las tres clases con sus atributos y métodos.
-Hay dos relaciones:
-
-- La **herencia**: `EventoDeportivo` apunta a `AgendaEventos` con el triángulo
-  hueco —es una agenda especializada—.
-- La **composición**: `AgendaEventos` contiene de 0 a muchos `Evento` (el rombo
-  relleno). Cada evento pertenece a una sola agenda.
-
-Las properties están marcadas: `cupo_maximo` y `fecha` con validación,
-`entradas_vendidas` de solo lectura, y las calculadas."
-
----
-
-## Bloque 5 — Documentación técnica [~1.5 min] · (Nicolas)
-
-> Mostrar `docs/documentacion_G15.md`.
-
-"La documentación técnica tiene las siete secciones que pide la consigna: carátula,
-descripción del sistema, decisiones de diseño, el diagrama UML, la descripción de
-cada clase y función, las instrucciones de ejecución y la reflexión comparativa.
-
-En decisiones de diseño explicamos por qué elegimos herencia para la colección
-especializada, y por qué separamos el modelo de la interfaz. La reflexión compara
-nuestro código con el TPI 1 y el TPI 2 —cómo pasamos de diccionarios y estado
-global a objetos encapsulados—, y está también al final del archivo de código en
-comentarios, con referencias a las funciones concretas."
-
----
-
-## Bloque 6 — Cierre [~30 seg] · (cualquiera)
-
-"En resumen: cumplimos los requisitos —las tres clases con herencia real y
-`super()`, el módulo funcional con filter/map/sorted, el menú completo— y cuidamos
-que el código sea mantenible y la lógica esté desacoplada de la interfaz. Quedamos
-atentos a las preguntas."
-
----
-
-## Recordatorios para todos
-
-- **No leer de memoria**: practicar hasta que salga natural.
-- **Cada uno responde por SU parte** en las preguntas (ver guiones individuales),
-  pero todos deben entender la app completa.
-- Si el profe pregunta algo que no sabés con certeza, mejor razonar en voz alta que
-  inventar. "Lo modelé así porque…" suma más que una respuesta memorizada y dudosa.
-- Tener el código y el UML abiertos y listos para señalar.
+- **No leer las slides**: son apoyo; hablar mirando al profe.
+- En la demo, **provocar a propósito** los rechazos (fecha inválida, sobreventa):
+  demuestran robustez y suman muchísimo.
+- Las preguntas serán técnicas y a alto nivel ("¿qué pasaría si esa validación
+  estuviera en otro módulo?"). Ver `preguntas_comunes.md` y los guiones individuales.
+- Si no sabés algo con certeza, razoná en voz alta desde el diseño; no inventes.

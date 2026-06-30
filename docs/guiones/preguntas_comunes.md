@@ -82,3 +82,49 @@ diferencia de Java); sirven de documentación y para que Pylance detecte errores
 TPI 1: estado global + diccionarios (`libro["titulo"]`). TPI 2: ya objetos `Libro` con
 una `Biblioteca`. Proyecto Final: encapsulación con `@property`, herencia con
 comportamiento real (no solo un atributo), desacople de la interfaz y type hints.
+
+---
+
+## Preguntas de arquitectura ("¿qué pasaría si…?")
+
+El profe, al no ver código, suele preguntar por diseño y modularidad: dónde vive cada
+responsabilidad y qué pasaría si estuviera en otro lado. La clave de casi todas las
+respuestas es el **desacople** (el modelo no sabe de la interfaz) y la **encapsulación**.
+
+**¿Qué pasaría si la validación del cupo estuviera en el menú en vez de en el `Evento`?**
+Se rompería la encapsulación: la regla quedaría atada a la consola. Si mañana
+agregáramos otra interfaz (gráfica/web), habría que reescribir la validación allí, y se
+podría crear un evento inválido por otro camino. Al estar en el setter del `Evento`, la
+regla se cumple **siempre**, sin importar quién cree el objeto.
+
+**¿Qué pasaría si `estadisticas()` imprimiera en vez de devolver un dict?**
+Quedaría acoplada a la consola. Hoy devuelve datos y cada interfaz decide cómo
+mostrarlos; si imprimiera, no podríamos reutilizar ese cálculo en una GUI o web sin
+modificar el modelo. Por eso el modelo no usa `print`.
+
+**¿Qué pasaría si el módulo funcional estuviera dentro de las clases?**
+Mezclaría dos paradigmas en el mismo lugar. Lo separamos a propósito: el módulo OO
+gestiona estado y comportamiento; el funcional son transformaciones puras (filter/map/
+sorted) sobre los objetos. Separado, se ve y se prueba más fácil.
+
+**¿Qué pasaría si `EventoDeportivo` NO heredara de `AgendaEventos`?**
+Tendríamos que copiar toda la gestión (agregar, buscar, filtrar) o duplicar lógica. La
+herencia nos deja reutilizar todo eso y solo agregar lo propio del deporte. Sin
+herencia, perderíamos el `super()` y el override, que son el corazón de la consigna.
+
+**¿Qué pasaría si quitáramos el `isinstance` de `agregar`?**
+La colección podría llenarse de objetos que no son `Evento`; al iterar para
+estadísticas o búsqueda, fallaría más adelante con un error confuso. El `isinstance`
+falla temprano y con un mensaje claro, en el punto de entrada.
+
+**¿Qué pasaría si `entradas_vendidas` tuviera setter público?**
+Se podría falsear la cantidad vendida sin pasar por la regla del cupo (sobrevender por
+la ventana de atrás). Por eso es de solo lectura: la única vía es `vender_entrada()`.
+
+**¿Dónde habría que tocar para agregar una nueva funcionalidad al menú?**
+Solo en `menu_consola.py`: una función nueva y una entrada en el diccionario `OPCIONES`.
+El modelo no se toca. Eso muestra que las responsabilidades están bien separadas.
+
+**¿Y para soportar una interfaz gráfica?**
+Se agregaría un nuevo archivo de interfaz que use el mismo `modelo.py` y
+`modulo_funcional.py`. El modelo no cambiaría en nada, porque no depende de la consola.
