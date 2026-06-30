@@ -50,12 +50,35 @@ Getter/setter pythónico: expone un método como atributo. Lo usamos para valida
 usa `__str__`; al imprimir una lista se usa el `__repr__` de cada elemento.
 
 **¿Qué garantiza `isinstance` en `agregar`?**
-Que la colección solo contenga Eventos; si llega otra cosa, lanza `TypeError`.
+Que la colección solo contenga Eventos; si llega otra cosa, lanza `TypeError`. El
+parámetro está anotado como `object` a propósito: el contrato es aceptar cualquier
+cosa y validar en runtime. Si lo anotáramos como `Evento`, el `isinstance` sería
+redundante para el verificador estático, pero la validación en ejecución igual hace
+falta porque los type hints no se imponen en runtime.
 
 **¿Por qué list comprehensions y no bucles con append?**
 Más conciso y legible: `[e for e in items if cond]` reemplaza 4 líneas de bucle.
 
+**¿La relación Agenda–Evento es composición o agregación?**
+La modelamos como composición: cada `Evento` pertenece a una sola agenda y vive dentro
+de su colección (no se comparte entre agendas). Que el objeto se construya en el menú y
+se pase a `agregar()` es solo la forma de implementarlo en Python; la pertenencia sigue
+siendo exclusiva. (Es el mismo criterio que el ejemplo Biblioteca–Libro del enunciado.)
+
+**¿Por qué al ordenar por nombre "Zumba" aparece antes que "aerobic"?**
+`sorted` con `key=lambda e: getattr(e, criterio)` ordena por orden de code point, donde
+las mayúsculas van antes que las minúsculas. Es el orden lexicográfico por defecto de
+Python; si quisiéramos orden alfabético real usaríamos `key=...lower()`.
+
+**¿Cómo validan la fecha?**
+Con `date.fromisoformat()` en el setter de `fecha`: valida que sea AAAA-MM-DD real
+(rechaza mes 13, texto, etc.). Es property igual que `cupo_maximo`.
+
+**¿Qué son los type hints? ¿Obligan algo?**
+Anotan tipos de parámetros y retorno. Son opcionales y NO se imponen en runtime (a
+diferencia de Java); sirven de documentación y para que Pylance detecte errores.
+
 **¿Qué evolucionó respecto al TPI 1 y TPI 2?**
 TPI 1: estado global + diccionarios (`libro["titulo"]`). TPI 2: ya objetos `Libro` con
 una `Biblioteca`. Proyecto Final: encapsulación con `@property`, herencia con
-comportamiento real (no solo un atributo), y desacople de la interfaz.
+comportamiento real (no solo un atributo), desacople de la interfaz y type hints.

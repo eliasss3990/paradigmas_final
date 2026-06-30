@@ -1,48 +1,83 @@
-# Guion de defensa — Enzo Dominguez
+# Preguntas individuales — Enzo Dominguez
 
-## Parte: clase `AgendaEventos` (Coleccion) + módulo funcional
+## Mi parte: clase `AgendaEventos` (Coleccion) + módulo funcional
+**Archivos:** `modelo.py` (clase `AgendaEventos`), `modulo_funcional.py`
 
-### Qué defiendo (archivos)
+> Banco de preguntas técnicas que el profe puede hacer sobre MI parte, con la
+> respuesta y el "dónde mostrarlo". Saber señalar la línea en pantalla.
 
-- `modelo.py` → clase `AgendaEventos` (líneas ~71 a ~113)
-- `modulo_funcional.py` → las tres funciones
+---
 
-### Guion hablado (intro)
+### Sobre la colección
 
-> "Yo implementé la colección, `AgendaEventos`, que centraliza la gestión: agregar con
-> validación de tipo, búsqueda parcial, filtrado por categoría y estadísticas. Decidí
-> que `estadisticas()` devuelva un diccionario en vez de imprimir, para desacoplar la
-> lógica de la interfaz. También hice el módulo funcional con filter, map y sorted."
+**¿Qué responsabilidad tiene `AgendaEventos`?**
+Es el contenedor: guarda los eventos en `items` y centraliza las operaciones sobre el
+conjunto —agregar, buscar, filtrar, estadísticas—. El evento individual se ocupa de sus
+datos; la colección, de las operaciones sobre el grupo. Es separación de responsabilidades.
 
-### Puntos fuertes
+**¿Qué hace `agregar` y por qué validás el tipo?**
+Antes de meter el evento a la lista, valido con `isinstance(evento, Evento)`; si no lo es,
+lanzo `TypeError`. Protege la integridad: garantiza que `items` solo tenga Eventos.
 
-1. **`agregar` valida con `isinstance`** → la colección nunca se contamina con
-   objetos que no son `Evento`.
-2. **List comprehensions** para búsqueda/filtrado: `[e for e in items if ...]`,
-   más conciso que un bucle con `append`.
-3. **`estadisticas()` devuelve `dict`** (no imprime) → desacople; la consola formatea.
-4. **Módulo funcional sobre objetos**, no diccionarios: `e.confirmado` en vez de
-   `dato["confirmado"]`.
+**¿Por qué el parámetro de `agregar` está tipado como `object` y no `Evento`?**
+A propósito: el contrato es "aceptá cualquier cosa y validá en runtime que sea un Evento".
+Si lo anotara como `Evento`, el `isinstance` sería redundante para el verificador estático,
+pero la validación en ejecución igual hace falta porque los type hints no se imponen en
+runtime.
 
-### Preguntas probables y respuestas
+**¿Cómo funcionan `buscar_por_nombre` y `filtrar_por_categoria`?**
+Con list comprehensions. `buscar_por_nombre` hace `[e for e in items if texto in
+e.nombre.lower()]`: búsqueda parcial, insensible a mayúsculas por el `.lower()`.
+`filtrar_por_categoria` filtra por coincidencia exacta de categoría.
 
-**P: ¿Cómo opera `filter()` sobre tus objetos? ¿Qué condición evalúa?**
-R: En `items_activos`, `filter(lambda e: e.confirmado, coleccion.items)` recorre los
-eventos y se queda con los que tienen `confirmado == True`. Después `map` extrae el
-nombre de cada uno. La condición es el atributo booleano `confirmado` del objeto.
+**¿Por qué list comprehensions y no un bucle con append?**
+Más conciso y legible: una línea reemplaza cuatro de bucle. Es el estilo idiomático de
+Python.
 
-**P: ¿Por qué envolvés `filter`/`map` en `list()`?**
-R: En Python 3 devuelven iteradores perezosos; sin `list()` no se materializan los
-resultados.
+### Sobre estadísticas (decisión de diseño clave)
 
-**P: ¿Qué es la `key=lambda` de `sorted`?**
-R: Es la función que decide por qué valor ordenar. Uso `key=lambda e: getattr(e,
-criterio)`, así ordeno por cualquier atributo cuyo nombre venga como string.
+**¿Por qué `estadisticas()` devuelve un dict en vez de imprimir?**
+Para desacoplar la lógica de la presentación. La agenda calcula y devuelve un diccionario
+con las métricas; quien la use —la consola u otra interfaz— decide cómo mostrarlo. Si
+imprimiera acá adentro, no podría reutilizar el cálculo en otra interfaz.
 
-**P: ¿Por qué `estadisticas` no imprime?**
-R: Para desacoplar el dominio de la interfaz. Devolviendo un dict, la consola lo
-muestra a su manera, y mañana una GUI lo usa igual sin tocar el modelo.
+**¿Qué métricas calcula?**
+Total de eventos, confirmados, pendientes, entradas vendidas, cupo total, ocupación
+(vendidas/cupo) y el conjunto de categorías presentes.
 
-**P: ¿Qué ganás con `isinstance` en `agregar`?**
-R: Integridad: garantizo que `items` solo contenga Eventos. Si llega otra cosa, lanzo
-`TypeError` en el punto de entrada en vez de fallar después en otro lado.
+**¿Qué es `__len__`?**
+Un método especial que permite hacer `len(agenda)` y que devuelva la cantidad de eventos,
+como si fuera una lista nativa.
+
+### Sobre el módulo funcional
+
+**¿Qué son las tres funciones y qué herramienta usa cada una?**
+`items_activos` (filter + map): nombres de los confirmados. `resumen_coleccion` (map): una
+línea por evento. `items_ordenados` (sorted + key=lambda): lista ordenada por un atributo.
+
+**¿Cómo opera `filter` sobre los objetos? ¿Qué condición evalúa?**
+`filter(lambda e: e.confirmado, items)` recorre los eventos y se queda con los que tienen
+`confirmado == True`. Evalúa el atributo booleano del objeto, no una clave de diccionario.
+
+**¿Por qué envolvés `filter` y `map` en `list()`?**
+Porque en Python 3 devuelven iteradores perezosos; sin `list()` no se materializan los
+resultados (no se ven los datos).
+
+**¿Qué hace `key=lambda` en `sorted`?**
+Define por qué valor ordenar. Uso `getattr(e, criterio)`, donde `criterio` es un string
+('fecha', 'nombre'…), lo que permite ordenar por cualquier atributo sin un if por cada uno.
+
+**Al ordenar por nombre, ¿por qué "Zumba" aparece antes que "aerobic"?**
+Por el orden de code point: las mayúsculas van antes que las minúsculas. Es el orden
+lexicográfico por defecto de Python; con `.lower()` en la key sería alfabético real.
+
+**¿Por qué el módulo funcional opera sobre objetos y no diccionarios?**
+Porque trabajar `e.confirmado` en vez de `dato['confirmado']` evita los `KeyError` y es más
+expresivo. Es justo la mejora respecto al TPI 1.
+
+### Comparación con TPI 1/2 (reflexión)
+
+**¿Qué cambió respecto a los TPI anteriores?**
+En el TPI 1, filter/map operaban sobre diccionarios (`libro['genero']`). En el final operan
+sobre objetos `Evento`. Y `estadisticas` pasó de imprimir a devolver datos, lo que permite
+reutilizar el modelo en cualquier interfaz.
