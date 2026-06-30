@@ -4,6 +4,8 @@ Opera sobre una EventoDeportivo (colección especializada) y delega toda la
 lógica en el modelo y el módulo funcional.
 """
 
+from datetime import date
+
 from modelo import Evento, EventoDeportivo
 from modulo_funcional import items_activos, resumen_coleccion, items_ordenados
 
@@ -39,12 +41,22 @@ def _leer_opcion_categoria(prompt):
         print("Categoría inválida.")
 
 
+def _leer_fecha(prompt):
+    while True:
+        valor = input(prompt).strip()
+        try:
+            date.fromisoformat(valor)
+            return valor
+        except ValueError:
+            print("Fecha inválida. Usá el formato AAAA-MM-DD (ej: 2026-08-15).")
+
+
 # ---------- acciones del menú ----------
 
 def _accion_agregar(agenda):
     print("\n--- AGREGAR EVENTO ---")
     nombre = _leer_texto("Nombre: ")
-    fecha = _leer_texto("Fecha (AAAA-MM-DD): ")
+    fecha = _leer_fecha("Fecha (AAAA-MM-DD): ")
     lugar = _leer_texto("Lugar: ")
     categoria = _leer_opcion_categoria("Categoría: ")
     cupo = _leer_entero("Cupo máximo: ", minimo=1)

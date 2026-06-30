@@ -4,16 +4,19 @@ No depende de la interfaz (sin print/input), para poder reutilizarla desde
 consola, Tkinter o web.
 """
 
+from datetime import date
+
 
 class Evento:
     """Evento individual de la agenda (EntidadBase del dominio)."""
 
     CATEGORIAS_VALIDAS = ("concierto", "conferencia", "deportivo", "taller", "otro")
 
-    def __init__(self, nombre, fecha, lugar, categoria, cupo_maximo,
-                 entradas_vendidas=0, confirmado=False):
+    def __init__(self, nombre: str, fecha: str, lugar: str, categoria: str,
+                 cupo_maximo: int, entradas_vendidas: int = 0,
+                 confirmado: bool = False) -> None:
         self.nombre = nombre
-        self.fecha = fecha # "AAAA-MM-DD"
+        self.fecha = fecha # vía setter: valida el formato AAAA-MM-DD
         self.lugar = lugar
         self.categoria = categoria
         self.cupo_maximo = cupo_maximo # vía setter: valida desde la construcción
@@ -23,29 +26,42 @@ class Evento:
         self.confirmado = confirmado
 
     @property
-    def cupo_maximo(self):
+    def fecha(self) -> str:
+        return self._fecha
+
+    @fecha.setter
+    def fecha(self, valor: str) -> None:
+        # date.fromisoformat valida que el string sea una fecha AAAA-MM-DD real.
+        try:
+            date.fromisoformat(valor)
+        except (ValueError, TypeError):
+            raise ValueError("La fecha debe tener el formato AAAA-MM-DD (ej: 2026-08-15).")
+        self._fecha = valor
+
+    @property
+    def cupo_maximo(self) -> int:
         return self._cupo_maximo
 
     @cupo_maximo.setter
-    def cupo_maximo(self, valor):
+    def cupo_maximo(self, valor: int) -> None:
         if valor <= 0:
             raise ValueError("El cupo máximo debe ser un entero mayor a 0.")
         self._cupo_maximo = valor
 
     @property
-    def entradas_vendidas(self):
+    def entradas_vendidas(self) -> int:
         # Solo lectura: las ventas solo cambian vía vender_entrada(), nunca por asignación directa.
         return self._entradas_vendidas
 
     @property
-    def lugares_disponibles(self):
+    def lugares_disponibles(self) -> int:
         return self._cupo_maximo - self._entradas_vendidas
 
     @property
-    def esta_agotado(self):
+    def esta_agotado(self) -> bool:
         return self.lugares_disponibles <= 0
 
-    def vender_entrada(self, cantidad=1):
+    def vender_entrada(self, cantidad: int = 1) -> bool:
         """Vende entradas respetando el cupo. Devuelve True si concretó la venta."""
         if cantidad <= 0:
             raise ValueError("La cantidad a vender debe ser mayor a 0.")
@@ -54,10 +70,10 @@ class Evento:
         self._entradas_vendidas += cantidad
         return True
 
-    def confirmar(self):
+    def confirmar(self) -> None:
         self.confirmado = True
 
-    def cancelar(self):
+    def cancelar(self) -> None:
         self.confirmado = False
 
     def __str__(self):
@@ -73,27 +89,27 @@ class Evento:
 class AgendaEventos:
     """Colección de eventos. Centraliza alta, búsqueda, filtrado y estadísticas."""
 
-    def __init__(self, nombre):
+    def __init__(self, nombre: str) -> None:
         self.nombre = nombre
-        self.items = [] # list[Evento]
+        self.items: list[Evento] = []
 
-    def agregar(self, evento):
+    def agregar(self, evento: "Evento") -> None:
         """Agrega un Evento validando el tipo para no contaminar la colección."""
         if not isinstance(evento, Evento):
             raise TypeError("Solo se pueden agregar instancias de Evento.")
         self.items.append(evento)
 
-    def buscar_por_nombre(self, texto):
+    def buscar_por_nombre(self, texto: str) -> list["Evento"]:
         """Búsqueda parcial, case-insensitive, por nombre del evento."""
         t = texto.lower()
         return [e for e in self.items if t in e.nombre.lower()]
 
-    def filtrar_por_categoria(self, categoria):
+    def filtrar_por_categoria(self, categoria: str) -> list["Evento"]:
         """Filtra por categoría exacta (case-insensitive)."""
         c = categoria.lower()
         return [e for e in self.items if e.categoria.lower() == c]
 
-    def estadisticas(self):
+    def estadisticas(self) -> dict:
         """Devuelve un dict con métricas. No imprime: la presentación es del menú."""
         total = len(self.items)
         confirmados = sum(1 for e in self.items if e.confirmado)
@@ -111,7 +127,7 @@ class AgendaEventos:
             "categorias": categorias,
         }
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.items)
 
 
@@ -128,18 +144,18 @@ class EventoDeportivo(AgendaEventos):
         "tenis": "1 vs 1, sets a 6 games con diferencia de 2.",
     }
 
-    def __init__(self, nombre, deporte):
+    def __init__(self, nombre: str, deporte: str) -> None:
         super().__init__(nombre) # inicializa nombre e items en el padre
         self.deporte = deporte
 
-    def reglamento(self):
+    def reglamento(self) -> str:
         """Devuelve el reglamento del deporte de la agenda (método propio del dominio)."""
         return self.REGLAMENTOS.get(
             self.deporte.lower(),
             f"No hay reglamento cargado para '{self.deporte}'."
         )
 
-    def estadisticas(self):
+    def estadisticas(self) -> dict:
         """Override: extiende las estadísticas del padre con datos del deporte."""
         datos = super().estadisticas() # reutiliza el cálculo base
         datos["deporte"] = self.deporte
