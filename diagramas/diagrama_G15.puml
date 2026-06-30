@@ -1,7 +1,60 @@
 @startuml diagrama_G15
-title Proyecto Final - Gestion de Eventos - Grupo 15
+' ===== Estilo profesional y sobrio (PlantUML) =====
+hide circle
+skinparam linetype polyline
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 10
+skinparam dpi 150
+skinparam nodesep 60
+skinparam ranksep 95
+skinparam defaultFontName "Helvetica"
+skinparam defaultFontSize 13
+skinparam classAttributeIconSize 0
+skinparam titleFontColor #1F2937
+skinparam titleFontSize 17
+skinparam titleFontStyle bold
 
-class Evento {
+skinparam class {
+  BackgroundColor #FFFFFF
+  HeaderBackgroundColor #ECEFF4
+  BorderColor #334155
+  BorderThickness 1.1
+  FontColor #1F2937
+  FontStyle bold
+  FontSize 15
+  AttributeFontColor #374151
+  AttributeFontSize 12
+  StereotypeFontColor #6B7280
+  StereotypeFontSize 11
+}
+skinparam ArrowColor #334155
+skinparam ArrowThickness 1.1
+skinparam ArrowFontColor #4B5563
+skinparam ArrowFontSize 12
+
+title Sistema de Gestión de Eventos — Grupo 15
+
+class EventoDeportivo <<ColeccionEspecializada>> {
+  + deporte : str
+  + {static} REGLAMENTOS : dict
+  --
+  + reglamento() : str
+  + estadisticas() : dict {override}
+}
+
+class AgendaEventos <<Coleccion>> {
+  + nombre : str
+  + items : list<Evento>
+  --
+  + agregar(evento) : None
+  + buscar_por_nombre(texto) : list<Evento>
+  + filtrar_por_categoria(categoria) : list<Evento>
+  + estadisticas() : dict
+  + __len__() : int
+}
+
+class Evento <<EntidadBase>> {
   + {static} CATEGORIAS_VALIDAS : tuple
   + nombre : str
   + lugar : str
@@ -13,36 +66,15 @@ class Evento {
   --
   + fecha : str {property}
   + cupo_maximo : int {property}
-  + entradas_vendidas : int {property, read-only}
-  + lugares_disponibles : int {property, calc}
-  + esta_agotado : bool {property, calc}
+  + entradas_vendidas : int {property, solo lectura}
+  + lugares_disponibles : int {property, calculada}
+  + esta_agotado : bool {property, calculada}
   + vender_entrada(cantidad=1) : bool
-  + confirmar() : None
-  + cancelar() : None
-  + __str__() : str
-  + __repr__() : str
+  + confirmar() / cancelar() : None
+  + __str__() / __repr__() : str
 }
 
-class AgendaEventos {
-  + nombre : str
-  + items : list<Evento>
-  --
-  + agregar(evento) : None
-  + buscar_por_nombre(texto) : list<Evento>
-  + filtrar_por_categoria(categoria) : list<Evento>
-  + estadisticas() : dict
-  + __len__() : int
-}
-
-class EventoDeportivo {
-  + deporte : str
-  + {static} REGLAMENTOS : dict
-  --
-  + reglamento() : str
-  + estadisticas() : dict {override}
-}
-
-EventoDeportivo --|> AgendaEventos : herencia
-AgendaEventos "1" *-- "0..*" Evento : composicion (items)
+EventoDeportivo -down-|> AgendaEventos : herencia
+AgendaEventos *-down- "0..*" Evento : composición
 
 @enduml
