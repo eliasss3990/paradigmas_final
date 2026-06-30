@@ -5,6 +5,7 @@ consola, Tkinter o web.
 """
 
 from datetime import date
+from typing import Any
 
 
 class Evento:
@@ -93,8 +94,12 @@ class AgendaEventos:
         self.nombre = nombre
         self.items: list[Evento] = []
 
-    def agregar(self, evento: "Evento") -> None:
-        """Agrega un Evento validando el tipo para no contaminar la colección."""
+    def agregar(self, evento: object) -> None:
+        """Agrega un Evento validando el tipo para no contaminar la colección.
+
+        Acepta 'object' a propósito: el contrato es validar en runtime que sea
+        un Evento y rechazar cualquier otro tipo.
+        """
         if not isinstance(evento, Evento):
             raise TypeError("Solo se pueden agregar instancias de Evento.")
         self.items.append(evento)
@@ -109,7 +114,7 @@ class AgendaEventos:
         c = categoria.lower()
         return [e for e in self.items if e.categoria.lower() == c]
 
-    def estadisticas(self) -> dict:
+    def estadisticas(self) -> dict[str, Any]:
         """Devuelve un dict con métricas. No imprime: la presentación es del menú."""
         total = len(self.items)
         confirmados = sum(1 for e in self.items if e.confirmado)
@@ -155,7 +160,7 @@ class EventoDeportivo(AgendaEventos):
             f"No hay reglamento cargado para '{self.deporte}'."
         )
 
-    def estadisticas(self) -> dict:
+    def estadisticas(self) -> dict[str, Any]:
         """Override: extiende las estadísticas del padre con datos del deporte."""
         datos = super().estadisticas() # reutiliza el cálculo base
         datos["deporte"] = self.deporte
