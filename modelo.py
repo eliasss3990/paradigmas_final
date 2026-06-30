@@ -1,7 +1,7 @@
 """Capa de dominio: Evento, AgendaEventos y EventoDeportivo.
 
 No depende de la interfaz (sin print/input), para poder reutilizarla desde
-consola, Tkinter o web.
+la consola u otra interfaz (gráfica o web).
 """
 
 import re

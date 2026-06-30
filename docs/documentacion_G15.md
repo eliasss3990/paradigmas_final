@@ -10,7 +10,7 @@
 |-------|-------|
 | **Dominio** | Gestión de eventos |
 | **Grupo** | G15 |
-| **Integrantes** | Elias Gonzalez · Enzo Dominguez · Nicolas Bareiro |
+| **Integrantes** | Elías González · Enzo Domínguez · Nicolás Bareiro |
 | **Fecha** | Junio 2026 |
 | **Docente** | Prof. Lic. Gustavo Galeano |
 | **Materia** | Paradigmas de la Programación (Código 4.2) |
@@ -63,8 +63,8 @@ Se eligió una jerarquía de tres clases con dos niveles de abstracción:
 
 La lógica de dominio (`modelo.py`) **no contiene `print` ni `input`**: las
 estadísticas se devuelven como `dict` y la presentación corre por cuenta de la
-interfaz (`menu_consola.py`). Así la misma lógica puede reutilizarse en una
-interfaz gráfica (Tkinter) o web sin modificar las clases.
+interfaz (`menu_consola.py`). Así la misma lógica podría reutilizarse en otra
+interfaz (gráfica o web) sin modificar las clases.
 
 ### Alternativas consideradas
 

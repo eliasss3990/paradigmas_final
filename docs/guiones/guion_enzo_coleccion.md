@@ -1,4 +1,4 @@
-# Preguntas individuales — Enzo Dominguez
+# Preguntas individuales — Enzo Domínguez
 
 ## Mi parte: clase `AgendaEventos` (Coleccion) + módulo funcional
 **Archivos:** `modelo.py` (clase `AgendaEventos`), `modulo_funcional.py`

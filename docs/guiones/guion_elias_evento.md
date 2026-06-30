@@ -1,4 +1,4 @@
-# Preguntas individuales — Elias Gonzalez
+# Preguntas individuales — Elías González
 
 ## Mi parte: clase `Evento` (EntidadBase) + menú de consola
 **Archivos:** `modelo.py` (clase `Evento`), `menu_consola.py`, `proyecto_G15.py`

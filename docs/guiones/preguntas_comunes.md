@@ -39,7 +39,7 @@ no se toca: solo se extiende.
 
 **¿Por qué `estadisticas()` devuelve un dict en vez de imprimir?**
 Para desacoplar dominio de interfaz. El modelo no usa `print`; la consola decide cómo
-mostrar. Así la misma lógica sirve para Tkinter o web sin cambios.
+mostrar. Así la misma lógica sirve para otra interfaz (gráfica o web) sin cambios.
 
 **¿Qué es `@property`?**
 Getter/setter pythónico: expone un método como atributo. Lo usamos para validar

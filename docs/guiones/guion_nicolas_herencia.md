@@ -1,4 +1,4 @@
-# Preguntas individuales — Nicolas Bareiro
+# Preguntas individuales — Nicolás Bareiro
 
 ## Mi parte: clase `EventoDeportivo` (herencia + super() + override)
 **Archivos:** `modelo.py` (clase `EventoDeportivo`)

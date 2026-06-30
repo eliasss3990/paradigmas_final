@@ -1,60 +1,74 @@
 # Guion de presentación grupal — Grupo 15
 
-Libreto que acompaña a la presentación (`presentacion_G15.pptx`, 11 slides). El enfoque
-es una **demo de producto (estilo UAT)**: explicamos *qué hace el sistema y qué valor
-da*, **sin mostrar código**. El detalle slide por slide está en `contenido_ppt.md`.
+Libreto que acompaña a la presentación (`presentacion_G15.pptx`, 13 slides). Enfoque
+**demo de producto (UAT)**: explicamos *qué hace el sistema y qué valor da*, **sin
+mostrar código**. El detalle slide por slide está en `contenido_ppt.md`.
 
-**Duración:** ~10 min + preguntas.
-**Reparto** (interno — NO está en el PPT proyectado): **Enzo abre y presenta al grupo**
-(slides 1-4) · **Elias** hace la demostración en vivo (slides 5-6) · **Nicolas** cierra
-(slides 7-11). Cada uno debe poder responder preguntas de TODA la app.
+**Duración:** ~4-5 min por integrante (más la demo en vivo y las preguntas).
+**Reparto** (interno — NO está en el PPT proyectado):
+- **Enzo** abre, **presenta al grupo** y da el contexto → slides 1-4.
+- **Elias** hace la **demostración en vivo** y recorre las capacidades → slides 5-9.
+- **Nicolás** cierra con calidad, diseño y el UML → slides 10-13.
 
-**Antes de empezar:** abrir el PPT en pantalla completa y tener la consola lista en otra
-ventana (`python3 proyecto_G15.py`).
+Cada uno debe poder responder preguntas técnicas de TODA la app (ver guiones
+individuales y `preguntas_comunes.md`).
+
+**Antes de empezar:** PPT en pantalla completa y la consola lista en otra ventana
+(`python3 proyecto_G15.py`).
 
 ---
 
-## Parte 1 — Apertura, problema y solución · Enzo [slides 1-4, ~3 min]
+## Parte 1 — Apertura y contexto · ENZO [slides 1-4, ~4-5 min]
 
-- **Slide 1 (portada):** "Buenas, somos el Grupo 15: Elias, Nicolas y yo, Enzo. Les
-  presentamos nuestro sistema de gestión de eventos."
-- **Slide 2 (el problema):** "Gestionar eventos a mano lleva a errores: datos
-  incompletos, sobreventa de entradas, perder el control de qué está confirmado."
-- **Slide 3 (la solución):** "Nuestra app de consola centraliza todo: cargar eventos,
-  controlar cupos, confirmar, vender entradas y consultar estadísticas."
-- **Slide 4 (funcionalidades):** "Estas son las ocho capacidades del sistema." → dar
-  paso a Elias para la demo.
+> Enzo es quien saluda y presenta al grupo.
 
-## Parte 2 — DEMO EN VIVO · Elias [slides 5-6 como apoyo, ~3-4 min]
+- **Slide 1 (portada):** "Buenas. Somos el Grupo 15: Elías, Nicolás y yo, Enzo. Les
+  presentamos nuestro Sistema de Gestión de Eventos, una aplicación de consola para
+  administrar una agenda de eventos."
+- **Slide 2 (qué entregamos):** "En resumen: un producto que centraliza eventos,
+  controla cupos y muestra información de seguimiento. Hoy lo defendemos con una demo
+  en vivo."
+- **Slide 3 (el problema):** "Gestionar eventos a mano lleva a errores: datos
+  incompletos, sobreventa de entradas y poca visibilidad del estado. Eso es lo que
+  resolvemos."
+- **Slide 4 (propuesta de valor):** "Tres pilares: control, trazabilidad y
+  visibilidad. Estos números resumen la demo —cero sobreventas, 54% de ocupación—."
+  → "Para verlo en acción, le paso la palabra a Elías."
 
-> Cambiar a la consola. Las slides 5-6 (recorrido y capturas) quedan de apoyo; el foco
-> es la app en vivo.
+## Parte 2 — Demostración en vivo · ELÍAS [slides 5-9, ~5 min]
 
-1. **Crear la agenda:** nombre 'Liga Verano', deporte 'Futsal'.
-2. **Agregar 'Final del Torneo'** (opción 1): fecha 2026-07-20, lugar, categoría
-   'deportivo', cupo 200.
-   - **Mostrar validación:** escribir una fecha inválida a propósito → "la rechaza y me
-     la vuelve a pedir" → luego la correcta.
-3. **Agregar un segundo evento** (charla/taller) para tener variedad.
-4. **Listar** (2), **buscar** 'final' (3), **filtrar** por 'deportivo' (4).
-5. **Vender entradas** (6): vender 150; luego **intentar 100 más** → "no me deja, no hay
-   cupo. Esta es la regla central."
-6. **Confirmar** (5) la final.
-7. **Estadísticas** (7): "la foto completa —total, confirmados, ocupación de la
-   colección, categorías y reglamento." (señalar el % que aparezca; no decirlo de memoria).
-8. **Módulo funcional** (8): confirmados, resumen, ordenar por fecha.
-9. Salir (9). Volver al PPT y pasar a Nicolas.
+> Las slides 5-9 son apoyo; el foco es la consola. Cambiar a la app.
 
-## Parte 3 — Beneficios y cierre · Nicolas [slides 7-11, ~2.5 min]
+- **Slide 5 (capacidades):** "Estas son las capacidades del sistema. Las muestro
+  funcionando." → pasar a la consola.
+- **Demo (apoyo: slides 6-9):**
+  1. **Crear agenda**: nombre 'Liga Verano', deporte 'Futsal'.
+  2. **Agregar 'Final del Torneo'**: fecha 2026-07-20, lugar, categoría 'deportivo',
+     cupo 200. → **meter una fecha mal a propósito** y mostrar que la rechaza.
+  3. **Agregar** un segundo evento (otra categoría) para tener variedad.
+  4. **Listar / buscar 'final' / filtrar 'deportivo'**.
+  5. **Vender 150 entradas**; luego **intentar 100 más** → "no me deja, no hay cupo".
+  6. **Confirmar** un evento.
+  7. **Estadísticas**: señalar ocupación, categorías y reglamento (no decir el número
+     de memoria; leer el que aparezca).
+  8. **Módulo funcional**: ordenar por fecha.
+- "Volviendo a las slides: esto es lo que acaban de ver —el sistema en acción, el
+  control de cupos y los indicadores." → paso la palabra a Nicolás.
 
-- **Slide 7 (beneficios):** "Control de cupo, trazabilidad de cada evento, visibilidad
-  con estadísticas, validación de datos, simplicidad de uso y un diseño extensible."
-- **Slide 8 (resultados):** "Acá está la evidencia concreta de lo que mostró Elias:
-  rechazo de fecha inválida, venta controlada, indicadores en vivo."
-- **Slide 9 (cómo está construido):** "Tres piezas —evento, agenda y agenda deportiva—,
-  con la lógica separada de la interfaz; por eso puede crecer sin reescribir el motor."
-- **Slide 10 (cierre):** "El sistema está listo y demuestra el flujo completo."
-- **Slide 11 (gracias):** "Gracias, quedamos atentos a las preguntas."
+## Parte 3 — Calidad, diseño y cierre · NICOLÁS [slides 10-13, ~4-5 min]
+
+- **Slide 10 (calidad de datos):** "El sistema protege la calidad de datos: valida el
+  formato de fecha, exige cupo positivo y bloquea la sobreventa. Ante un dato inválido,
+  no se rompe: lo vuelve a pedir."
+- **Slide 11 (cómo está construido):** "A alto nivel, tres capas: la interfaz de
+  consola, el motor de gestión y la especialización deportiva. La lógica está separada
+  de la pantalla, por eso puede crecer."
+- **Slide 12 (UML):** "Este es el modelo de clases. La agenda deportiva hereda de la
+  agenda general —reutiliza todo y agrega su reglamento—; la agenda contiene los
+  eventos; y los datos sensibles están validados."
+- **Slide 13 (gracias):** "En síntesis, el sistema demuestra un flujo completo:
+  registrar, validar, vender, consultar y analizar. Gracias, quedamos atentos a las
+  preguntas."
 
 ---
 
