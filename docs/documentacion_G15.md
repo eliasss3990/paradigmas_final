@@ -134,7 +134,7 @@ Ver `../diagramas/diagrama_G15.png` (generado desde `../diagramas/diagrama_G15.p
 
 ### Requisitos
 
-- Python 3.8 o superior. No requiere librerías externas.
+- Python 3.10 o superior (usa anotaciones de tipo `list[...]` y `X | None`). No requiere librerías externas.
 
 ### Ejecución
 

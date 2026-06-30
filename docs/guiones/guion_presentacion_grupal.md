@@ -46,8 +46,11 @@ centraliza eso y valida las reglas automáticamente."
 
 5. **Confirmar (opción 5):** confirmar la final.
 
-6. **Estadísticas (opción 7):** "Muestra total, confirmados, ocupación (75%),
-   categorías y el reglamento del deporte." → señalar la ocupación y el reglamento.
+6. **Estadísticas (opción 7):** "Muestra total, confirmados, la ocupación de la
+   colección (entradas vendidas sobre el cupo total de todos los eventos),
+   categorías y el reglamento del deporte." → señalar el porcentaje que aparezca en
+   pantalla y el reglamento. (No memorizar un número: la ocupación es global, depende
+   de cuántos eventos haya cargados y sus cupos.)
 
 7. **Módulo funcional (opción 8):** mostrar las tres: confirmados, resumen y
    ordenar por fecha. *Por qué:* "Esto es la parte funcional, con filter, map y
