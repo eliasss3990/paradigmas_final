@@ -113,12 +113,12 @@ class AgendaEventos:
             raise TypeError("Solo se pueden agregar instancias de Evento.")
         self.items.append(evento)
 
-    def buscar_por_nombre(self, texto: str) -> list["Evento"]:
+    def buscar_por_nombre(self, texto: str) -> list[Evento]:
         """Búsqueda parcial, case-insensitive, por nombre del evento."""
         t = texto.lower()
         return [e for e in self.items if t in e.nombre.lower()]
 
-    def filtrar_por_categoria(self, categoria: str) -> list["Evento"]:
+    def filtrar_por_categoria(self, categoria: str) -> list[Evento]:
         """Filtra por categoría exacta (case-insensitive)."""
         c = categoria.lower()
         return [e for e in self.items if e.categoria.lower() == c]

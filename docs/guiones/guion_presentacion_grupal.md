@@ -7,7 +7,7 @@ mostrar código**. El detalle slide por slide está en `contenido_ppt.md`.
 **Duración:** ~4-5 min por integrante (más la demo en vivo y las preguntas).
 **Reparto** (interno — NO está en el PPT proyectado):
 - **Enzo** abre, **presenta al grupo** y da el contexto → slides 1-4.
-- **Elias** hace la **demostración en vivo** y recorre las capacidades → slides 5-9.
+- **Elías** hace la **demostración en vivo** y recorre las capacidades → slides 5-9.
 - **Nicolás** cierra con calidad, diseño y el UML → slides 10-13.
 
 Cada uno debe poder responder preguntas técnicas de TODA la app (ver guiones
@@ -45,7 +45,9 @@ individuales y `preguntas_comunes.md`).
   1. **Crear agenda**: nombre 'Liga Verano', deporte 'Futsal'.
   2. **Agregar 'Final del Torneo'**: fecha 2026-07-20, lugar, categoría 'deportivo',
      cupo 200. → **meter una fecha mal a propósito** y mostrar que la rechaza.
-  3. **Agregar** un segundo evento (otra categoría) para tener variedad.
+  3. **Agregar** un segundo evento (ej. una charla, categoría 'conferencia', **cupo 80**)
+     para tener variedad. Con esto el cupo total queda en 280 y, con 150 vendidas, la
+     ocupación dará **54%** — igual que el número de las slides.
   4. **Listar / buscar 'final' / filtrar 'deportivo'**.
   5. **Vender 150 entradas**; luego **intentar 100 más** → "no me deja, no hay cupo".
   6. **Confirmar** un evento.

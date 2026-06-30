@@ -20,7 +20,7 @@ if __name__ == "__main__":
 #    operaba sobre la lista global `libros` y guardaba diccionarios sueltos
 #    (libro["titulo"], etc.), sin validar el tipo del elemento. En TPI 2,
 #    Biblioteca.agregar() (tpi2_GRUPO_15.py, línea 46) ya pasó a objeto. En el
-#    Proyecto Final, AgendaEventos.agregar() (modelo.py, línea ~100) valida con
+#    Proyecto Final, AgendaEventos.agregar() (modelo.py, línea ~106) valida con
 #    isinstance(evento, Evento) y opera sobre self.items, atributo propio del
 #    objeto. Lo que ganamos con la encapsulación: el estado dejó de ser global
 #    (no se corrompe desde cualquier parte) y la regla de integridad —"solo
@@ -28,7 +28,7 @@ if __name__ == "__main__":
 #
 # 2) Decisión de diseño más difícil
 #    Modelar el reglamento de cada deporte sin crear una subclase por deporte.
-#    Se resolvió con el dict de clase REGLAMENTOS (modelo.py, línea ~147) y
+#    Se resolvió con el dict de clase REGLAMENTOS (modelo.py, línea ~153) y
 #    reglamento() con dict.get() y valor por defecto. Es más extensible (se
 #    agrega un deporte sin tocar la lógica) y menos verboso que una jerarquía.
 #    Frente a TPI 2, donde BibliotecaEspecializada (tpi2_GRUPO_15.py, línea 78)
