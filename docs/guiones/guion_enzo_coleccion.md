@@ -1,10 +1,42 @@
-# Preguntas individuales — Enzo Domínguez
+# Guion individual — Enzo Domínguez
 
-## Mi parte: clase `AgendaEventos` (Coleccion) + módulo funcional
-**Archivos:** `modelo.py` (clase `AgendaEventos`), `modulo_funcional.py`
+**En la presentación:** apertura (slides 1-5) — presento el grupo, el problema, la
+solución y el valor. Mi guion hablado está en `guion_presentacion_grupal.md`.
+**En el código (mi parte):** clase `AgendaEventos` (Coleccion) + módulo funcional
+(`modelo.py`, `modulo_funcional.py`).
 
-> Banco de preguntas técnicas que el profe puede hacer sobre MI parte, con la
-> respuesta y el "dónde mostrarlo". Saber señalar la línea en pantalla.
+---
+
+## A. Preguntas frecuentes de producto (mi bloque de la presentación)
+
+**¿Cuál es el objetivo principal del sistema?** Centralizar la gestión de eventos en
+una consola: carga, consulta, venta de entradas con control de cupo, validaciones y
+estadísticas.
+
+**¿Por qué consola y no interfaz gráfica?** El objetivo del proyecto era demostrar la
+lógica y el flujo funcional; la consola permite validar el producto de forma directa.
+Además la lógica está desacoplada, así que mañana se le podría poner una GUI.
+
+**¿Qué problema real resuelve?** Evita errores típicos de la gestión manual: fechas
+inválidas, cupos incorrectos, sobreventa y falta de visibilidad.
+
+**¿Qué significa que sea una demo de producto / UAT?** Que mostramos el comportamiento
+del sistema desde el punto de vista del usuario, verificando que cumple lo esperado.
+
+**¿Qué valor aporta?** Control de cupos, trazabilidad de eventos y estadísticas rápidas
+para tomar decisiones.
+
+**¿Por qué está especializado por deporte?** Para sumar información propia del deporte
+(el reglamento) sin perder la gestión general de eventos.
+
+**¿Qué diferencia este sistema de una simple lista de eventos?** Además de guardar,
+aplica reglas, controla ventas y genera indicadores.
+
+---
+
+## B. Preguntas técnicas sobre mi código (defensa individual)
+
+> Saber señalar la línea en pantalla.
 
 ---
 

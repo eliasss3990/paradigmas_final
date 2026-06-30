@@ -1,10 +1,44 @@
-# Preguntas individuales — Nicolás Bareiro
+# Guion individual — Nicolás Bareiro
 
-## Mi parte: clase `EventoDeportivo` (herencia + super() + override)
-**Archivos:** `modelo.py` (clase `EventoDeportivo`)
+**En la presentación:** cierre (slides 9-13) — estadísticas, calidad de datos,
+construcción a alto nivel, UML y conclusión. Mi guion hablado está en
+`guion_presentacion_grupal.md`.
+**En el código (mi parte):** clase `EventoDeportivo` (herencia + super() + override)
+en `modelo.py`.
 
-> Banco de preguntas técnicas que el profe puede hacer sobre MI parte, con la
-> respuesta y el "dónde mostrarlo". Saber señalar la línea en pantalla.
+---
+
+## A. Preguntas frecuentes de producto (mi bloque de la presentación)
+
+**¿Qué estadísticas muestra el sistema?** Total de eventos, confirmados, pendientes,
+entradas vendidas, cupo total, ocupación, categorías presentes y reglamento.
+
+**¿Cómo se calcula la ocupación?** Comparando las entradas vendidas con el cupo total de
+la colección (vendidas / cupo total).
+
+**¿Para qué sirve el reglamento del deporte?** Demuestra que la agenda está
+especializada por deporte y puede mostrar información asociada a esa especialización.
+
+**¿Qué aporta el módulo de análisis?** Permite listar confirmados, generar resúmenes y
+ordenar eventos por criterios como fecha o nombre.
+
+**¿Por qué es importante separar lógica e interfaz?** Para reutilizar el motor si más
+adelante se suma una interfaz gráfica o web, sin reescribir las reglas.
+
+**¿El sistema está limitado a futsal?** No: futsal es un ejemplo. Se pueden agregar otros
+deportes y reglamentos sin tocar la lógica.
+
+**¿Qué pasa si no hay eventos y se piden estadísticas?** El sistema informa valores en
+cero sin romperse (no hay división por cero).
+
+**¿Qué mejoras futuras son posibles?** Persistencia de datos, reportes exportables,
+usuarios con permisos o una interfaz gráfica/web.
+
+---
+
+## B. Preguntas técnicas sobre mi código (defensa individual)
+
+> Saber señalar la línea en pantalla.
 
 ---
 

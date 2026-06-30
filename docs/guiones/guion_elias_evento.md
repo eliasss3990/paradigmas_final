@@ -1,11 +1,43 @@
-# Preguntas individuales — Elías González
+# Guion individual — Elías González
 
-## Mi parte: clase `Evento` (EntidadBase) + menú de consola
-**Archivos:** `modelo.py` (clase `Evento`), `menu_consola.py`, `proyecto_G15.py`
+**En la presentación:** demostración en vivo (slides 6-8) — recorro el sistema en
+consola: agenda, carga, validación, búsqueda, confirmación, venta y control de cupo.
+Mi guion hablado y los datos fijos de la demo están en `guion_presentacion_grupal.md`.
+**En el código (mi parte):** clase `Evento` (EntidadBase) + menú de consola
+(`modelo.py`, `menu_consola.py`, `proyecto_G15.py`).
 
-> Banco de preguntas técnicas que el profe puede hacer sobre MI parte, con la
-> respuesta y el "dónde mostrarlo" en el código. No es para recitar: es para tener
-> la respuesta clara. Saber señalar la línea en pantalla.
+---
+
+## A. Preguntas frecuentes de producto (mi bloque de la presentación)
+
+**¿Qué opciones tiene el menú principal?** Agregar evento, mostrar, buscar, filtrar,
+confirmar, vender entradas, ver estadísticas, módulo funcional y salir.
+
+**¿Qué datos se cargan para registrar un evento?** Nombre, fecha, lugar, categoría y
+cupo máximo.
+
+**¿Cómo se valida la fecha?** Solo se acepta formato AAAA-MM-DD válido; si es inválida,
+el sistema la vuelve a pedir.
+
+**¿Qué pasa si el cupo no es positivo?** Se rechaza y se vuelve a pedir un cupo válido.
+
+**¿Cómo se evita la sobreventa?** Antes de vender, el sistema verifica los lugares
+disponibles; si no alcanzan, rechaza la operación.
+
+**¿La búsqueda exige el nombre exacto?** No, es parcial: se encuentra con una parte del
+nombre.
+
+**¿Qué significa confirmar un evento?** Marcarlo como confirmado para diferenciarlo de
+los pendientes y reflejarlo en las estadísticas.
+
+**¿Qué evidencia demuestra que funciona?** La consola muestra altas, validaciones,
+ventas aceptadas, ventas rechazadas y cambios de estado en vivo.
+
+---
+
+## B. Preguntas técnicas sobre mi código (defensa individual)
+
+> No es para recitar: tener la respuesta clara y saber señalar la línea en pantalla.
 
 ---
 

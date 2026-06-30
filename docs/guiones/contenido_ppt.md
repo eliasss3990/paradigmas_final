@@ -4,6 +4,8 @@ Presentación estilo **demo de producto (UAT)**: alto nivel, enfocada en *qué h
 sistema y qué valor entrega*, **sin mostrar código**. Acompaña a la demo en vivo.
 
 **Archivo:** `presentacion_G15.pptx` · 13 slides · 16:9
+**Reparto:** Enzo (slides 1-5, apertura) · Elías (6-8, demo en vivo) · Nicolás (9-13,
+estadísticas/diseño/cierre). Detalle en `guion_presentacion_grupal.md`.
 **Importante:** el PPT es para **proyectar** (lo ven el profe y los compañeros). NO
 contiene material interno (reparto de partes, guiones personales). Eso vive en
 `guion_presentacion_grupal.md` y en los guiones individuales, solo para el grupo.
