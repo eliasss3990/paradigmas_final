@@ -19,7 +19,7 @@ contiene material interno (reparto de partes, guiones personales). Eso vive en
    respuesta de la solución.
 4. **Control, trazabilidad y visibilidad** (propuesta de valor) — 3 pilares + KPIs
    (0 sobreventas, 54% ocupación, 2 eventos, 3 vistas de análisis).
-5. **Todo lo que permite hacer la aplicación** — las 8/9 capacidades en grilla.
+5. **Todo lo que permite hacer la aplicación** — las capacidades del sistema en grilla.
 6. **El flujo que se mostrará en vivo** (recorrido) — 6 pasos: crear, cargar, validar,
    vender, rechazar sobreventa, ver estadísticas + captura de inicio.
 7. **Menú principal y carga de eventos** (el sistema en acción) — capturas del menú y
