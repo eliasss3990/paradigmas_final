@@ -3,8 +3,12 @@
 from menu_consola import iniciar
 
 
-if __name__ == "__main__":
+def main() -> None:
     iniciar()
+
+
+if __name__ == "__main__":
+    main()
 
 
 # ============================================================================

@@ -5,6 +5,7 @@ lógica en el modelo y el módulo funcional.
 """
 
 from datetime import date
+from typing import Callable
 
 from modelo import Evento, EventoDeportivo
 from modulo_funcional import items_activos, resumen_coleccion, items_ordenados
@@ -12,7 +13,7 @@ from modulo_funcional import items_activos, resumen_coleccion, items_ordenados
 
 # ---------- helpers de entrada (revalidan hasta recibir un dato correcto) ----------
 
-def _leer_texto(prompt):
+def _leer_texto(prompt: str) -> str:
     valor = input(prompt).strip()
     while not valor:
         print("No puede quedar vacío.")
@@ -20,7 +21,7 @@ def _leer_texto(prompt):
     return valor
 
 
-def _leer_entero(prompt, minimo=None):
+def _leer_entero(prompt: str, minimo: int | None = None) -> int:
     while True:
         try:
             valor = int(input(prompt).strip())
@@ -32,7 +33,7 @@ def _leer_entero(prompt, minimo=None):
             print("Ingresá un número entero válido.")
 
 
-def _leer_opcion_categoria(prompt):
+def _leer_opcion_categoria(prompt: str) -> str:
     print("Categorías:", ", ".join(Evento.CATEGORIAS_VALIDAS))
     while True:
         cat = input(prompt).strip().lower()
@@ -41,7 +42,7 @@ def _leer_opcion_categoria(prompt):
         print("Categoría inválida.")
 
 
-def _leer_fecha(prompt):
+def _leer_fecha(prompt: str) -> str:
     while True:
         valor = input(prompt).strip()
         try:
@@ -53,7 +54,7 @@ def _leer_fecha(prompt):
 
 # ---------- acciones del menú ----------
 
-def _accion_agregar(agenda):
+def _accion_agregar(agenda: EventoDeportivo) -> None:
     print("\n--- AGREGAR EVENTO ---")
     nombre = _leer_texto("Nombre: ")
     fecha = _leer_fecha("Fecha (AAAA-MM-DD): ")
@@ -65,7 +66,7 @@ def _accion_agregar(agenda):
     print(f"Evento '{nombre}' agregado correctamente.")
 
 
-def _mostrar_lista(eventos):
+def _mostrar_lista(eventos: list[Evento]) -> None:
     if not eventos:
         print("(sin resultados)")
         return
@@ -73,24 +74,24 @@ def _mostrar_lista(eventos):
         print(f"  {i}. {e}")
 
 
-def _accion_mostrar(agenda):
+def _accion_mostrar(agenda: EventoDeportivo) -> None:
     print("\n--- TODOS LOS EVENTOS ---")
     _mostrar_lista(agenda.items)
 
 
-def _accion_buscar(agenda):
+def _accion_buscar(agenda: EventoDeportivo) -> None:
     print("\n--- BUSCAR POR NOMBRE ---")
     texto = _leer_texto("Texto a buscar: ")
     _mostrar_lista(agenda.buscar_por_nombre(texto))
 
 
-def _accion_filtrar(agenda):
+def _accion_filtrar(agenda: EventoDeportivo) -> None:
     print("\n--- FILTRAR POR CATEGORÍA ---")
     categoria = _leer_opcion_categoria("Categoría: ")
     _mostrar_lista(agenda.filtrar_por_categoria(categoria))
 
 
-def _accion_marcar(agenda):
+def _accion_marcar(agenda: EventoDeportivo) -> None:
     print("\n--- MARCAR EVENTO COMO CONFIRMADO ---")
     if not agenda.items:
         print("(no hay eventos cargados)")
@@ -104,7 +105,7 @@ def _accion_marcar(agenda):
         print("Número fuera de rango.")
 
 
-def _accion_vender(agenda):
+def _accion_vender(agenda: EventoDeportivo) -> None:
     print("\n--- VENDER ENTRADAS ---")
     if not agenda.items:
         print("(no hay eventos cargados)")
@@ -122,7 +123,7 @@ def _accion_vender(agenda):
         print(f"No hay cupo suficiente. Disponibles: {evento.lugares_disponibles}")
 
 
-def _accion_estadisticas(agenda):
+def _accion_estadisticas(agenda: EventoDeportivo) -> None:
     print("\n--- ESTADÍSTICAS ---")
     d = agenda.estadisticas()
     print(f"Colección: {d['nombre']}")
@@ -136,7 +137,7 @@ def _accion_estadisticas(agenda):
     print(f"Reglamento {d['deporte']}: {d['reglamento']}")
 
 
-def _accion_funcional(agenda):
+def _accion_funcional(agenda: EventoDeportivo) -> None:
     print("\n--- MÓDULO FUNCIONAL ---")
     print("a. Nombres de eventos confirmados (filter + map)")
     print("b. Resumen de la colección (map)")
@@ -159,7 +160,7 @@ def _accion_funcional(agenda):
 
 # ---------- bucle principal ----------
 
-OPCIONES = {
+OPCIONES: dict[str, tuple[str, Callable[[EventoDeportivo], None]]] = {
     "1": ("Agregar evento", _accion_agregar),
     "2": ("Mostrar todos los eventos", _accion_mostrar),
     "3": ("Buscar por nombre", _accion_buscar),
@@ -173,14 +174,14 @@ OPCIONES = {
 SALIR = "9"
 
 
-def _imprimir_menu():
+def _imprimir_menu() -> None:
     print("\n--- MENÚ PRINCIPAL ---")
     for clave, (etiqueta, _) in OPCIONES.items():
         print(f"{clave}. {etiqueta}")
     print(f"{SALIR}. Salir")
 
 
-def iniciar():
+def iniciar() -> None:
     print("=" * 46)
     print("SISTEMA DE GESTIÓN DE EVENTOS — PROYECTO FINAL")
     print("Paradigmas de la Programación · FP-UNA · Grupo 15")
