@@ -77,12 +77,12 @@ class Evento:
     def cancelar(self) -> None:
         self.confirmado = False
 
-    def __str__(self):
+    def __str__(self) -> str:
         estado = "confirmado" if self.confirmado else "pendiente"
         return (f"{self.nombre} ({self.categoria}) — {self.fecha} en {self.lugar} "
                 f"| {self._entradas_vendidas}/{self._cupo_maximo} entradas | {estado}")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return (f"Evento(nombre={self.nombre!r}, fecha={self.fecha!r}, "
                 f"categoria={self.categoria!r}, cupo_maximo={self._cupo_maximo})")
 

@@ -90,7 +90,8 @@ Ver `../diagramas/diagrama_G15.png` (generado desde `../diagramas/diagrama_G15.p
 
 | Elemento | Tipo / Retorno | Descripción |
 |----------|----------------|-------------|
-| `nombre`, `fecha`, `lugar`, `categoria` | `str` | Datos básicos del evento |
+| `nombre`, `lugar`, `categoria` | `str` | Datos básicos del evento |
+| `fecha` | `str` (property) | Valida el formato AAAA-MM-DD al asignar |
 | `cupo_maximo` | `int` (property) | Capacidad; valida que sea > 0 |
 | `entradas_vendidas` | `int` (property solo lectura) | Solo cambia vía `vender_entrada` |
 | `lugares_disponibles` | `int` (calculada) | `cupo_maximo - entradas_vendidas` |
