@@ -76,11 +76,18 @@ propio de una versión especializada. Con herencia, la base permanece genérica.
 
 ## 3. Diagrama UML de clases
 
-Ver `../diagramas/diagrama_G15.png` (generado desde `../diagramas/diagrama_G15.puml`).
+![Diagrama UML de clases del sistema](diagrama_G15.png)
 
-- `EventoDeportivo ▷── AgendaEventos`: herencia (triángulo hueco hacia el padre).
-- `AgendaEventos 1 ◆── 0..* Evento`: composición; la agenda contiene 0..* eventos.
-  Cada `Evento` pertenece a una sola agenda y vive dentro de su colección.
+> El diagrama se entrega como imagen `diagrama_G15.png` junto a este documento.
+
+**Cómo leerlo:**
+
+- `EventoDeportivo ▷── AgendaEventos`: **herencia** (triángulo hueco hacia el padre).
+  `EventoDeportivo` *es una* `AgendaEventos` especializada en un deporte.
+- `AgendaEventos 1 ◆── 0..* Evento`: **composición**; la agenda contiene de 0 a muchos
+  eventos. Cada `Evento` pertenece a una sola agenda y vive dentro de su colección.
+- Los atributos privados (`_fecha`, `_cupo_maximo`, `_entradas_vendidas`) se exponen como
+  *properties* validadas; `entradas_vendidas` es de solo lectura.
 
 ---
 
@@ -138,16 +145,27 @@ Ver `../diagramas/diagrama_G15.png` (generado desde `../diagramas/diagrama_G15.p
 
 ### Ejecución
 
+Los cuatro archivos `.py` deben estar **en la misma carpeta**. Desde ahí:
+
 ```bash
 python3 proyecto_G15.py
 ```
 
 ### Estructura de archivos
 
-- `modelo.py` — clases de dominio (Evento, AgendaEventos, EventoDeportivo)
-- `modulo_funcional.py` — funciones filter/map/sorted
-- `menu_consola.py` — interfaz de consola
-- `proyecto_G15.py` — punto de entrada
+El sistema está modularizado en cuatro archivos (separación de responsabilidades):
+
+| Archivo | Responsabilidad |
+|---------|-----------------|
+| `proyecto_G15.py` | Punto de entrada. Lanza el menú y contiene la reflexión comparativa. |
+| `modelo.py` | Clases de dominio: `Evento`, `AgendaEventos`, `EventoDeportivo`. |
+| `modulo_funcional.py` | Módulo funcional: `items_activos`, `resumen_coleccion`, `items_ordenados`. |
+| `menu_consola.py` | Interfaz de consola (única capa con `print`/`input`). |
+
+### Archivos de la entrega
+
+Junto a este documento se entregan: los cuatro archivos `.py` anteriores y el diagrama
+`diagrama_G15.png` (incrustado en la sección 3).
 
 ---
 
