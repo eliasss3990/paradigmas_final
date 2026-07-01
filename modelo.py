@@ -21,10 +21,10 @@ class Evento:
                  cupo_maximo: int, entradas_vendidas: int = 0,
                  confirmado: bool = False) -> None:
         self.nombre = nombre
-        self.fecha = fecha # vía setter: valida el formato AAAA-MM-DD
+        self.fecha = fecha # valida el formato AAAA-MM-DD via setter
         self.lugar = lugar
         self.categoria = categoria
-        self.cupo_maximo = cupo_maximo # vía setter: valida desde la construcción
+        self.cupo_maximo = cupo_maximo # valida desde la construcción via setter
         if not 0 <= entradas_vendidas <= self.cupo_maximo:
             raise ValueError("Las entradas vendidas deben estar entre 0 y el cupo máximo.")
         self._entradas_vendidas = entradas_vendidas
@@ -36,10 +36,8 @@ class Evento:
 
     @fecha.setter
     def fecha(self, valor: str) -> None:
-        # El regex exige el formato AAAA-MM-DD exacto; fromisoformat valida que sea
+        # El regex exige el formato AAAA-MM-DD exacto y fromisoformat valida que sea
         # una fecha real (descarta mes 13, día 40, etc.).
-        # fullmatch lanza TypeError si 'valor' no es str (p. ej. None); lo capturamos
-        # junto con el ValueError para devolver siempre un mensaje claro.
         try:
             if not PATRON_FECHA.fullmatch(valor):
                 raise ValueError
@@ -124,7 +122,7 @@ class AgendaEventos:
         return [e for e in self.items if e.categoria.lower() == c]
 
     def estadisticas(self) -> dict[str, Any]:
-        """Devuelve un dict con métricas. No imprime: la presentación es del menú."""
+        """Devuelve un dict con métricas. No imprime nada, la presentación es del menú."""
         total = len(self.items)
         confirmados = sum(1 for e in self.items if e.confirmado)
         entradas_vendidas = sum(e.entradas_vendidas for e in self.items)
@@ -163,7 +161,7 @@ class EventoDeportivo(AgendaEventos):
         self.deporte = deporte
 
     def reglamento(self) -> str:
-        """Devuelve el reglamento del deporte de la agenda (método propio del dominio)."""
+        """Devuelve el reglamento del deporte de la agenda."""
         return self.REGLAMENTOS.get(
             self.deporte.lower(),
             f"No hay reglamento cargado para '{self.deporte}'."
@@ -174,6 +172,6 @@ class EventoDeportivo(AgendaEventos):
         datos = super().estadisticas() # reutiliza el cálculo base
         datos["deporte"] = self.deporte
         datos["reglamento"] = self.reglamento()
-        # 'deporte' determina el reglamento; este conteo es independiente, por categoría.
+        # 'deporte' determina el reglamento. Este conteo es independiente, por categoría.
         datos["eventos_categoria_deportivo"] = len(self.filtrar_por_categoria("deportivo"))
         return datos

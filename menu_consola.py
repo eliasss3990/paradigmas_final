@@ -150,9 +150,9 @@ CRITERIOS_ORDEN = {
 
 def _accion_funcional(agenda: EventoDeportivo) -> None:
     print("\n--- MÓDULO FUNCIONAL ---")
-    print("a. Nombres de eventos confirmados (filter + map)")
-    print("b. Resumen de la colección (map)")
-    print("c. Ordenar por criterio (sorted)")
+    print("a. Nombres de eventos confirmados")
+    print("b. Resumen de la colección")
+    print("c. Ordenar por criterio")
     opcion = input("Seleccione: ").strip().lower()
     if opcion == "a":
         print("Confirmados:", items_activos(agenda) or "(ninguno)")
